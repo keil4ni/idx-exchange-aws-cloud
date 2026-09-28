@@ -1,2 +1,5 @@
 # Week 1 Deliverable
 
+A **root user** in AWS refers to the main account that has full access to personal information whereas an **IAM user** is an account under the root user, but do not have unrestricted access. An IAM user may have security or cloud service restrictions, and not all IAM users may share the same permissions. You should use an IAM user over the root user mainly for security purposes. For example, if a bad actor was able to log in as the root user and your account is running many cloud services and many IAM users are under that account, they have full access over everything.
+
+A **shared responsibility model** refers to the shared responsibility between the AWS platform and the customer, which in this case is myself. AWS manages the services within the cloud in the sense that they take care of the services provided (i.e EC2, VPC, S3), and other things such as regions and availability zones. On the other hand, the customer is responsible for the security of these services where they control who is able to access the services and however they want to manage their data.
