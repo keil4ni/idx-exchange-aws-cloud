@@ -28,7 +28,7 @@ Target group status: 2/2 healthy
 
 **Procedure:** Manually terminated instance `<instance-id>` in the EC2 console.
 
-**Result:** Replacement launched in about <2> minutes without manual action.
+**Result:** Replacement launched in about 2 minutes without manual action.
 
 ![ASG activity after termination](6.2-asg-capacity.png)
 
