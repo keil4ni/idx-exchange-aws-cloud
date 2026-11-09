@@ -58,25 +58,13 @@ This is least privilege, the same pattern as Week 2:
 - **Resource is scoped to one table.** If the function is compromised or has a bug, it can't read any other table in the account.
 - **Compared to `AmazonDynamoDBReadOnlyAccess`:** that managed policy grants read access to every table in the account, which is far more than this function needs.
 
-### Cold start observation
-
-From the Lambda test logs:
-
-| Invocation | Duration | Init Duration | Billed Duration |
-|------------|----------|---------------|-----------------|
-| First (cold) | 270.82 ms | 498.58 ms | 770 ms |
-| Earlier cold run | 331.97 ms | 412.30 ms | 745 ms |
-| Warm (re-run) | <!-- TODO --> | none | <!-- TODO --> |
-
-A cold start happens when Lambda has to create a new execution environment and run the code outside the handler (importing boto3, creating the DynamoDB resource). That one-time cost shows up as **Init Duration** and is billed. Warm invocations reuse the environment and skip it. Creating the `dynamodb` and `table` objects at module level, outside `lambda_handler`, means warm invocations don't pay for them again.
-
 ### Debugging notes
 
 Issues hit while building this, and how each was diagnosed (always from CloudWatch logs, not from the API response):
 
 | Error | Meaning | Resolution |
 |-------|---------|------------|
-| `ResourceNotFoundException` on `GetItem` | The permission check passed, but DynamoDB couldn't find the requested table | <!-- TODO: write what the actual cause turned out to be --> |
+| `ResourceNotFoundException` on `GetItem` | The permission check passed, but DynamoDB couldn't find the requested table | Forgot to create the DyanamoDB table, follow the instuctions from Week 4 |
 | `TypeError: Object of type Decimal is not JSON serializable` | boto3 returns DynamoDB numbers as `Decimal`; `json.dumps` can't encode them | Added a `default=` converter to `json.dumps` |
 
 Other failures to watch for (from Debug Lab 7.3):
