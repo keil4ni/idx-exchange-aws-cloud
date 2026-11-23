@@ -1,0 +1,25 @@
+
+{
+  "family": "property-api",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "cpu": "256",
+  "memory": "512",
+  "executionRoleArn": "arn:aws:iam::911008223395:role/ecs-task-execution-role",
+  "containerDefinitions": [
+    {
+      "name": "property-api",
+      "image": "911008223395.dkr.ecr.us-east-1.amazonaws.com/property-api:latest",
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 8080,
+          "hostPort": 8080,
+          "protocol": "tcp"
+        }
+      ]
+    }
+  ]
+}
